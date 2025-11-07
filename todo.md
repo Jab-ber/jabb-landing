@@ -23,3 +23,7 @@
 
 - [x] Support multilingue français/anglais avec sélecteur de langue
 
+
+
+- [x] Configurer Vite pour GitHub Pages avec base path correct
+
