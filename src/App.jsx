@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useLanguage } from './contexts/LanguageContext.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent } from '@/components/ui/card.jsx'
 import { Input } from '@/components/ui/input.jsx'
@@ -6,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea.jsx'
 import { 
   Menu, X, ChevronRight, CheckCircle, Users, TrendingUp, 
   FileText, BarChart3, Star, Clock, Shield, Zap, Eye,
-  MessageSquare, Mail, Phone, MapPin
+  MessageSquare, Mail, Phone, MapPin, Languages
 } from 'lucide-react'
 import './App.css'
 import heroImage from './assets/HxTP5rOT7HZ4.jpg'
@@ -14,6 +15,7 @@ import serviceImage from './assets/HKmznw7Czltd.jpg'
 import dashboardImage from './assets/FG7KdDrIrdbx.webp'
 
 function App() {
+  const { language, toggleLanguage, t } = useLanguage()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -50,22 +52,30 @@ function App() {
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-8">
               <button onClick={() => scrollToSection('about')} className="text-foreground/80 hover:text-foreground transition">
-                À propos
+                {t('nav.about')}
               </button>
               <button onClick={() => scrollToSection('how-it-works')} className="text-foreground/80 hover:text-foreground transition">
-                Comment ça marche
+                {t('nav.howItWorks')}
               </button>
               <button onClick={() => scrollToSection('services')} className="text-foreground/80 hover:text-foreground transition">
-                Services
+                {t('nav.services')}
               </button>
               <button onClick={() => scrollToSection('benefits')} className="text-foreground/80 hover:text-foreground transition">
-                Avantages
+                {t('nav.benefits')}
               </button>
               <button onClick={() => scrollToSection('contact')} className="text-foreground/80 hover:text-foreground transition">
-                Contact
+                {t('nav.contact')}
+              </button>
+              <button 
+                onClick={toggleLanguage}
+                className="flex items-center gap-2 text-foreground/80 hover:text-foreground transition"
+                title="Change language"
+              >
+                <Languages size={20} />
+                <span className="text-sm font-medium">{language.toUpperCase()}</span>
               </button>
               <Button onClick={() => scrollToSection('contact')}>
-                Demander une démo
+                {t('nav.requestDemo')}
               </Button>
             </div>
 
@@ -84,22 +94,29 @@ function App() {
           <div className="md:hidden bg-background border-t">
             <div className="px-4 py-4 space-y-3">
               <button onClick={() => scrollToSection('about')} className="block w-full text-left py-2">
-                À propos
+                {t('nav.about')}
               </button>
               <button onClick={() => scrollToSection('how-it-works')} className="block w-full text-left py-2">
-                Comment ça marche
+                {t('nav.howItWorks')}
               </button>
               <button onClick={() => scrollToSection('services')} className="block w-full text-left py-2">
-                Services
+                {t('nav.services')}
               </button>
               <button onClick={() => scrollToSection('benefits')} className="block w-full text-left py-2">
-                Avantages
+                {t('nav.benefits')}
               </button>
               <button onClick={() => scrollToSection('contact')} className="block w-full text-left py-2">
-                Contact
+                {t('nav.contact')}
+              </button>
+              <button 
+                onClick={toggleLanguage}
+                className="flex items-center gap-2 w-full text-left py-2"
+              >
+                <Languages size={20} />
+                <span>{language === 'fr' ? 'English' : 'Français'}</span>
               </button>
               <Button onClick={() => scrollToSection('contact')} className="w-full">
-                Demander une démo
+                {t('nav.requestDemo')}
               </Button>
             </div>
           </div>
@@ -113,36 +130,35 @@ function App() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 animate-fade-in-up">
               <h1 className="text-5xl md:text-6xl font-bold leading-tight">
-                Transformez votre{' '}
+                {t('hero.title')}{' '}
                 <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                  expérience client
+                  {t('hero.titleHighlight')}
                 </span>
               </h1>
               <p className="text-xl text-muted-foreground">
-                JABB vous aide à améliorer la qualité de service de votre restaurant grâce à des évaluations 
-                professionnelles par des clients mystère certifiés.
+                {t('hero.subtitle')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button size="lg" onClick={() => scrollToSection('contact')} className="group">
-                  Commencer maintenant
+                  {t('hero.startNow')}
                   <ChevronRight className="ml-2 group-hover:translate-x-1 transition" />
                 </Button>
                 <Button size="lg" variant="outline" onClick={() => scrollToSection('how-it-works')}>
-                  Découvrir comment
+                  {t('hero.discover')}
                 </Button>
               </div>
               <div className="flex items-center gap-8 pt-4">
                 <div>
                   <div className="text-3xl font-bold text-blue-600">500+</div>
-                  <div className="text-sm text-muted-foreground">Missions réalisées</div>
+                  <div className="text-sm text-muted-foreground">{t('hero.missions')}</div>
                 </div>
                 <div>
                   <div className="text-3xl font-bold text-blue-600">98%</div>
-                  <div className="text-sm text-muted-foreground">Satisfaction client</div>
+                  <div className="text-sm text-muted-foreground">{t('hero.satisfaction')}</div>
                 </div>
                 <div>
                   <div className="text-3xl font-bold text-blue-600">50+</div>
-                  <div className="text-sm text-muted-foreground">Restaurants partenaires</div>
+                  <div className="text-sm text-muted-foreground">{t('hero.partners')}</div>
                 </div>
               </div>
             </div>
@@ -156,7 +172,7 @@ function App() {
                 <div className="flex items-center gap-2">
                   <Star className="text-yellow-500 fill-yellow-500" size={20} />
                   <span className="font-bold">4.8/5</span>
-                  <span className="text-sm text-muted-foreground">Score moyen</span>
+                  <span className="text-sm text-muted-foreground">{t('hero.avgScore')}</span>
                 </div>
               </div>
             </div>
@@ -168,11 +184,9 @@ function App() {
       <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-bold mb-4">Qu'est-ce que JABB ?</h2>
+            <h2 className="text-4xl font-bold mb-4">{t('about.title')}</h2>
             <p className="text-xl text-muted-foreground">
-              JABB (Just Another Better Business) est un service de client mystère spécialisé dans l'évaluation 
-              de l'expérience client dans les restaurants. Nous vous aidons à identifier les points d'amélioration 
-              et à optimiser votre service pour satisfaire vos clients.
+              {t('about.subtitle')}
             </p>
           </div>
 
@@ -182,10 +196,9 @@ function App() {
                 <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
                   <Eye className="text-blue-600" size={24} />
                 </div>
-                <h3 className="text-xl font-bold">Évaluation incognito</h3>
+                <h3 className="text-xl font-bold">{t('about.card1Title')}</h3>
                 <p className="text-muted-foreground">
-                  Nos évaluateurs certifiés visitent votre restaurant comme des clients ordinaires pour une 
-                  évaluation objective et authentique.
+                  {t('about.card1Text')}
                 </p>
               </CardContent>
             </Card>
@@ -195,7 +208,7 @@ function App() {
                 <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
                   <FileText className="text-blue-600" size={24} />
                 </div>
-                <h3 className="text-xl font-bold">Rapports détaillés</h3>
+                <h3 className="text-xl font-bold">{t('about.card2Title')}</h3>
                 <p className="text-muted-foreground">
                   Recevez des rapports complets avec analyses, recommandations et plan d'actions pour améliorer 
                   votre service.
@@ -208,9 +221,9 @@ function App() {
                 <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
                   <BarChart3 className="text-blue-600" size={24} />
                 </div>
-                <h3 className="text-xl font-bold">Dashboard interactif</h3>
+                <h3 className="text-xl font-bold">{t('about.card3Title')}</h3>
                 <p className="text-muted-foreground">
-                  Visualisez vos performances en temps réel avec notre dashboard intuitif et suivez votre progression.
+                  {t('about.card3Text')}
                 </p>
               </CardContent>
             </Card>
@@ -222,9 +235,9 @@ function App() {
       <section id="how-it-works" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-bold mb-4">Comment ça marche ?</h2>
+            <h2 className="text-4xl font-bold mb-4">{t('howItWorks.title')}</h2>
             <p className="text-xl text-muted-foreground">
-              Un processus simple et efficace en 4 étapes pour améliorer votre service
+              {t('howItWorks.subtitle')}
             </p>
           </div>
 
@@ -232,26 +245,26 @@ function App() {
             {[
               {
                 step: '01',
-                title: 'Inscription',
-                description: 'Créez votre compte et choisissez votre formule adaptée à vos besoins',
+                title: t('howItWorks.step1Title'),
+                description: t('howItWorks.step1Text'),
                 icon: Users
               },
               {
                 step: '02',
-                title: 'Mission',
-                description: 'Un JABBer certifié visite votre restaurant et évalue tous les aspects du service',
+                title: t('howItWorks.step2Title'),
+                description: t('howItWorks.step2Text'),
                 icon: Eye
               },
               {
                 step: '03',
-                title: 'Analyse',
-                description: 'Recevez un rapport détaillé avec scores, observations et recommandations',
+                title: t('howItWorks.step3Title'),
+                description: t('howItWorks.step3Text'),
                 icon: BarChart3
               },
               {
                 step: '04',
-                title: 'Amélioration',
-                description: 'Mettez en place les actions correctives et suivez vos progrès',
+                title: t('howItWorks.step4Title'),
+                description: t('howItWorks.step4Text'),
                 icon: TrendingUp
               }
             ].map((item, index) => (
@@ -282,9 +295,9 @@ function App() {
       <section id="services" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-bold mb-4">Nos Services</h2>
+            <h2 className="text-4xl font-bold mb-4">{t('services.title')}</h2>
             <p className="text-xl text-muted-foreground">
-              Des solutions complètes pour tous vos besoins d'évaluation
+              {t('services.subtitle')}
             </p>
           </div>
 
@@ -296,9 +309,9 @@ function App() {
                     <CheckCircle className="text-blue-600" size={20} />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold mb-2">Évaluation complète</h3>
+                    <h3 className="text-lg font-bold mb-2">{t('services.service1Title')}</h3>
                     <p className="text-muted-foreground">
-                      Analyse de tous les aspects : accueil, service, qualité des plats, propreté, ambiance
+                      {t('howItWorks.step3Title')} de tous les aspects : accueil, service, qualité des plats, propreté, ambiance
                     </p>
                   </div>
                 </div>
@@ -310,9 +323,9 @@ function App() {
                     <Clock className="text-blue-600" size={20} />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold mb-2">Chronométrage précis</h3>
+                    <h3 className="text-lg font-bold mb-2">{t('services.service2Title')}</h3>
                     <p className="text-muted-foreground">
-                      Mesure des délais de service pour identifier les goulots d'étranglement
+                      {t('services.service2Text')}
                     </p>
                   </div>
                 </div>
@@ -324,9 +337,9 @@ function App() {
                     <FileText className="text-blue-600" size={20} />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold mb-2">Rapports personnalisés</h3>
+                    <h3 className="text-lg font-bold mb-2">{t('services.service3Title')}</h3>
                     <p className="text-muted-foreground">
-                      Documents PDF détaillés avec analyses, graphiques et recommandations actionnables
+                      {t('services.service3Text')}
                     </p>
                   </div>
                 </div>
@@ -338,9 +351,9 @@ function App() {
                     <BarChart3 className="text-blue-600" size={20} />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold mb-2">Suivi de performance</h3>
+                    <h3 className="text-lg font-bold mb-2">{t('services.service4Title')}</h3>
                     <p className="text-muted-foreground">
-                      Dashboard en temps réel pour suivre l'évolution de vos scores et identifier les tendances
+                      {t('services.service4Text')}
                     </p>
                   </div>
                 </div>
@@ -355,11 +368,11 @@ function App() {
               />
               <div className="absolute -bottom-6 -right-6 bg-white dark:bg-card p-6 rounded-xl shadow-xl max-w-xs">
                 <div className="space-y-2">
-                  <div className="text-sm text-muted-foreground">Score Overall moyen</div>
+                  <div className="text-sm text-muted-foreground">{t('services.scoreLabel')}</div>
                   <div className="text-3xl font-bold text-blue-600">3.8/5</div>
                   <div className="text-sm text-green-600 flex items-center gap-1">
                     <TrendingUp size={16} />
-                    +0.5 vs mois dernier
+                    +0.5 {t('services.improvement')}
                   </div>
                 </div>
               </div>
@@ -372,9 +385,9 @@ function App() {
       <section id="benefits" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-bold mb-4">Pourquoi choisir JABB ?</h2>
+            <h2 className="text-4xl font-bold mb-4">{t('benefits.title')}</h2>
             <p className="text-xl text-muted-foreground">
-              Des avantages concrets pour votre restaurant
+              {t('benefits.subtitle')}
             </p>
           </div>
 
@@ -382,33 +395,33 @@ function App() {
             {[
               {
                 icon: Shield,
-                title: 'Évaluateurs certifiés',
-                description: 'Tous nos JABBers sont formés et certifiés pour garantir des évaluations objectives et professionnelles'
+                title: t('benefits.benefit1Title'),
+                description: t('benefits.benefit1Text')
               },
               {
                 icon: Zap,
-                title: 'Résultats rapides',
-                description: 'Recevez votre rapport détaillé dans les 48h suivant la mission'
+                title: t('benefits.benefit2Title'),
+                description: t('benefits.benefit2Text')
               },
               {
                 icon: BarChart3,
-                title: 'Analyses approfondies',
-                description: 'Plus de 150 points de données collectés par mission pour une vue complète'
+                title: t('howItWorks.step3Title') + 's approfondies',
+                description: t('benefits.benefit3Text')
               },
               {
                 icon: TrendingUp,
-                title: 'ROI mesurable',
-                description: 'Augmentation moyenne de 25% de la satisfaction client après 6 mois'
+                title: t('benefits.benefit4Title'),
+                description: t('benefits.benefit4Text')
               },
               {
                 icon: Users,
-                title: 'Support dédié',
-                description: 'Une équipe à votre écoute pour vous accompagner dans vos améliorations'
+                title: t('benefits.benefit5Title'),
+                description: t('benefits.benefit5Text')
               },
               {
                 icon: Star,
-                title: 'Confidentialité garantie',
-                description: 'Vos données et rapports restent strictement confidentiels'
+                title: t('benefits.benefit6Title'),
+                description: t('benefits.benefit6Text')
               }
             ].map((benefit, index) => (
               <Card key={index} className="p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
@@ -429,9 +442,9 @@ function App() {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-bold mb-4">Dashboard Intuitif</h2>
+            <h2 className="text-4xl font-bold mb-4">{t('dashboard.title')}</h2>
             <p className="text-xl text-muted-foreground">
-              Visualisez toutes vos données en un coup d'œil
+              {t('dashboard.subtitle')}
             </p>
           </div>
 
@@ -448,19 +461,19 @@ function App() {
             <Card className="p-6 text-center">
               <CardContent className="p-0 space-y-2">
                 <div className="text-3xl font-bold text-blue-600">10+</div>
-                <div className="text-sm text-muted-foreground">Dimensions évaluées</div>
+                <div className="text-sm text-muted-foreground">{t('dashboard.stat1')}</div>
               </CardContent>
             </Card>
             <Card className="p-6 text-center">
               <CardContent className="p-0 space-y-2">
                 <div className="text-3xl font-bold text-blue-600">150+</div>
-                <div className="text-sm text-muted-foreground">Points de données</div>
+                <div className="text-sm text-muted-foreground">{t('dashboard.stat2')}</div>
               </CardContent>
             </Card>
             <Card className="p-6 text-center">
               <CardContent className="p-0 space-y-2">
                 <div className="text-3xl font-bold text-blue-600">24h</div>
-                <div className="text-sm text-muted-foreground">Délai de rapport</div>
+                <div className="text-sm text-muted-foreground">{t('dashboard.stat3')}</div>
               </CardContent>
             </Card>
           </div>
@@ -471,30 +484,30 @@ function App() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-bold mb-4">Ce que disent nos clients</h2>
+            <h2 className="text-4xl font-bold mb-4">{t('testimonials.title')}</h2>
             <p className="text-xl text-muted-foreground">
-              Ils nous font confiance pour améliorer leur service
+              {t('testimonials.subtitle')}
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                name: 'Ahmed Benali',
-                role: 'Directeur, Le Médina',
+                name: t('testimonials.testimonial1Name'),
+                role: t('testimonials.testimonial1Role'),
                 content: 'JABB nous a permis d\'identifier des problèmes que nous ne soupçonnions pas. Les rapports sont détaillés et les recommandations très actionnables. Notre score de satisfaction a augmenté de 30% en 3 mois !',
                 rating: 5
               },
               {
-                name: 'Fatima Zahra',
-                role: 'Gérante, Café Moderne',
+                name: t('testimonials.testimonial2Name'),
+                role: t('testimonials.testimonial2Role'),
                 content: 'Le service est professionnel et discret. Les évaluateurs sont vraiment incognito et les analyses sont pertinentes. C\'est un investissement qui vaut vraiment le coup.',
                 rating: 5
               },
               {
-                name: 'Karim Alaoui',
-                role: 'Chef, Restaurant Gastronomique',
-                content: 'Grâce à JABB, nous avons pu standardiser nos procédures et former notre équipe plus efficacement. Le dashboard est très pratique pour suivre nos progrès.',
+                name: t('testimonials.testimonial3Name'),
+                role: t('testimonials.testimonial3Role'),
+                content: t('testimonials.testimonial3'),
                 rating: 5
               }
             ].map((testimonial, index) => (
@@ -522,7 +535,7 @@ function App() {
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12">
             <div className="space-y-6">
-              <h2 className="text-4xl font-bold">Prêt à améliorer votre service ?</h2>
+              <h2 className="text-4xl font-bold">{t('contact.title')}</h2>
               <p className="text-xl text-muted-foreground">
                 Contactez-nous dès aujourd'hui pour une démonstration gratuite et découvrez comment JABB peut 
                 transformer votre expérience client.
@@ -534,7 +547,7 @@ function App() {
                     <Mail className="text-blue-600" size={20} />
                   </div>
                   <div>
-                    <div className="font-medium">Email</div>
+                    <div className="font-medium">{t('contact.email')}</div>
                     <div className="text-muted-foreground">contact@jabb.ma</div>
                   </div>
                 </div>
@@ -544,7 +557,7 @@ function App() {
                     <Phone className="text-blue-600" size={20} />
                   </div>
                   <div>
-                    <div className="font-medium">Téléphone</div>
+                    <div className="font-medium">{t('contact.phone')}</div>
                     <div className="text-muted-foreground">+212 5XX-XXXXXX</div>
                   </div>
                 </div>
@@ -554,8 +567,8 @@ function App() {
                     <MapPin className="text-blue-600" size={20} />
                   </div>
                   <div>
-                    <div className="font-medium">Adresse</div>
-                    <div className="text-muted-foreground">Casablanca, Maroc</div>
+                    <div className="font-medium">{t('contact.address')}</div>
+                    <div className="text-muted-foreground">{t('contact.addressValue')}</div>
                   </div>
                 </div>
               </div>
@@ -564,35 +577,35 @@ function App() {
             <Card className="p-8">
               <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Nom complet</label>
-                  <Input placeholder="Votre nom" />
+                  <label className="text-sm font-medium">{t('contact.formName')}</label>
+                  <Input placeholder={t('contact.formNamePlaceholder')} />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Email</label>
-                  <Input type="email" placeholder="votre@email.com" />
+                  <label className="text-sm font-medium">{t('contact.email')}</label>
+                  <Input type="email" placeholder={t('contact.formEmailPlaceholder')} />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Téléphone</label>
-                  <Input type="tel" placeholder="+212 XXX-XXXXXX" />
+                  <label className="text-sm font-medium">{t('contact.phone')}</label>
+                  <Input type="tel" placeholder={t('contact.formPhonePlaceholder')} />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Nom du restaurant</label>
-                  <Input placeholder="Le nom de votre restaurant" />
+                  <label className="text-sm font-medium">{t('contact.formRestaurant')}</label>
+                  <Input placeholder={t('contact.formRestaurantPlaceholder')} />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Message</label>
+                  <label className="text-sm font-medium">{t('contact.formMessage')}</label>
                   <Textarea 
-                    placeholder="Parlez-nous de vos besoins..." 
+                    placeholder={t('contact.formMessagePlaceholder')} 
                     rows={4}
                   />
                 </div>
 
                 <Button type="submit" className="w-full" size="lg">
-                  Envoyer la demande
+                  {t('contact.formSubmit')}
                   <ChevronRight className="ml-2" />
                 </Button>
               </form>
@@ -610,43 +623,43 @@ function App() {
                 JABB
               </div>
               <p className="text-sm text-muted-foreground">
-                Just Another Better Business - Votre partenaire pour l'excellence du service client.
+                Just Another Better Business - {t('footer.tagline')}
               </p>
             </div>
 
             <div>
-              <h3 className="font-bold mb-4">Services</h3>
+              <h3 className="font-bold mb-4">{t('footer.servicesTitle')}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition">Client Mystère</a></li>
-                <li><a href="#" className="hover:text-foreground transition">Rapports détaillés</a></li>
+                <li><a href="#" className="hover:text-foreground transition">{t('footer.service1')}</a></li>
+                <li><a href="#" className="hover:text-foreground transition">{t('about.card2Title')}</a></li>
                 <li><a href="#" className="hover:text-foreground transition">Dashboard</a></li>
-                <li><a href="#" className="hover:text-foreground transition">Formation</a></li>
+                <li><a href="#" className="hover:text-foreground transition">{t('footer.service4')}</a></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="font-bold mb-4">Entreprise</h3>
+              <h3 className="font-bold mb-4">{t('footer.companyTitle')}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition">À propos</a></li>
-                <li><a href="#" className="hover:text-foreground transition">Blog</a></li>
-                <li><a href="#" className="hover:text-foreground transition">Carrières</a></li>
-                <li><a href="#" className="hover:text-foreground transition">Contact</a></li>
+                <li><a href="#" className="hover:text-foreground transition">{t('footer.company1')}</a></li>
+                <li><a href="#" className="hover:text-foreground transition">{t('footer.company2')}</a></li>
+                <li><a href="#" className="hover:text-foreground transition">{t('footer.company3')}</a></li>
+                <li><a href="#" className="hover:text-foreground transition">{t('nav.contact')}</a></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="font-bold mb-4">Légal</h3>
+              <h3 className="font-bold mb-4">{t('footer.legalTitle')}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition">Mentions légales</a></li>
-                <li><a href="#" className="hover:text-foreground transition">Confidentialité</a></li>
-                <li><a href="#" className="hover:text-foreground transition">CGU</a></li>
-                <li><a href="#" className="hover:text-foreground transition">Cookies</a></li>
+                <li><a href="#" className="hover:text-foreground transition">{t('footer.legal1')}</a></li>
+                <li><a href="#" className="hover:text-foreground transition">{t('footer.legal2')}</a></li>
+                <li><a href="#" className="hover:text-foreground transition">{t('footer.legal3')}</a></li>
+                <li><a href="#" className="hover:text-foreground transition">{t('footer.legal4')}</a></li>
               </ul>
             </div>
           </div>
 
           <div className="border-t pt-8 text-center text-sm text-muted-foreground">
-            <p>© 2025 JABB. Tous droits réservés.</p>
+            <p>{t('footer.copyright')}</p>
           </div>
         </div>
       </footer>

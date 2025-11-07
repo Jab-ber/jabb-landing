@@ -17,3 +17,9 @@
 - [x] Optimisation des images
 - [x] SEO meta tags
 
+
+
+## Nouvelles features
+
+- [x] Support multilingue français/anglais avec sélecteur de langue
+
