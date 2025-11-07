@@ -27,3 +27,6 @@
 
 - [x] Configurer Vite pour GitHub Pages avec base path correct
 
+
+- [x] Créer workflow GitHub Actions pour déploiement automatique
+
