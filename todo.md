@@ -30,3 +30,7 @@
 
 - [x] Créer workflow GitHub Actions pour déploiement automatique
 
+
+
+- [x] Remplacer l'ancien logo par le nouveau logo JABB (J stylisé)
+
