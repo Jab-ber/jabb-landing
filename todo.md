@@ -47,3 +47,12 @@
 - [x] Supprimer le fichier CNAME pour arrêter la redirection vers jabb.pro
 - [x] Mettre à jour le logo dans le footer
 
+
+
+- [x] Redéployer le site pour vider le cache
+
+
+
+- [x] Vérifier que toutes les images utilisent PNG au lieu de JPG
+- [x] Corriger l'affichage du logo PNG dans le header et footer
+

@@ -13,7 +13,7 @@ import './App.css'
 import heroImage from './assets/HxTP5rOT7HZ4.jpg'
 import serviceImage from './assets/HKmznw7Czltd.jpg'
 import dashboardImage from './assets/FG7KdDrIrdbx.webp'
-import jabbLogo from './assets/jabb-logo.svg'
+import jabbLogo from './assets/jabb-logo.png'
 
 function App() {
   const { language, toggleLanguage, t } = useLanguage()
