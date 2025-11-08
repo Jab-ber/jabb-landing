@@ -34,3 +34,7 @@
 
 - [x] Remplacer l'ancien logo par le nouveau logo JABB (J stylisé)
 
+
+
+- [x] Retirer le préfixe /jabb-landing/ des chemins pour compatibilité locale et GitHub Pages
+
