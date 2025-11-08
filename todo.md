@@ -38,3 +38,12 @@
 
 - [x] Retirer le préfixe /jabb-landing/ des chemins pour compatibilité locale et GitHub Pages
 
+
+
+- [x] Déployer le build vers la branche gh-pages
+
+
+
+- [x] Supprimer le fichier CNAME pour arrêter la redirection vers jabb.pro
+- [x] Mettre à jour le logo dans le footer
+

@@ -621,8 +621,9 @@ function App() {
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-4">
-                JABB
+              <div className="flex items-center gap-3 mb-4">
+                <img src={jabbLogo} alt="JABB Logo" className="h-8" />
+                <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">JABB</span>
               </div>
               <p className="text-sm text-muted-foreground">
                 Just Another Better Business - {t('footer.tagline')}
